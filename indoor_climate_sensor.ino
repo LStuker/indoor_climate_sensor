@@ -200,17 +200,17 @@ void publishString(char * topic, String payload) {
 void influxLineProtocol(void){
   
   char influx_line[90];
-  char measure[51] = "weather,location=living_room ";
+  char *measure = "weather,location=living_room ";
   char* temp_field = "temp=";
   char* humidity_field = ",hum=";
   char* pressure_field = ",press=";
   char* gas_field = ",gas=";
   char* altitude_field = ",alt=";
-  char temperature_value[6];
-  char humidity_value[6];
-  char pressure_value[7];
-  char gas_value[7];
-  char altitude_value[7];
+  char temperature_value[7];
+  char humidity_value[7];
+  char pressure_value[8];
+  char gas_value[8];
+  char altitude_value[8];
   
   dtostrf(temperature, 4, 2, temperature_value);
   dtostrf(humidity, 4, 2, humidity_value);
@@ -218,6 +218,7 @@ void influxLineProtocol(void){
   dtostrf(gas_resistance, 4, 2, gas_value);
   dtostrf(est_altitude, 4, 2, altitude_value);
 
+  influx_line[0] = '\0';
   strcat(influx_line, measure);
   strcat(influx_line, temp_field);
   strcat(influx_line, temperature_value);
